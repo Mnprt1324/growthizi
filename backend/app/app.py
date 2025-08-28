@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/update-section", methods=["POST"])
+@app.route("/", methods=["POST"])
 def log_edit():
     try:
         data = request.get_json()
@@ -17,10 +18,16 @@ def log_edit():
         print("New Value:")
         print(new_value)
         print("-" * 50)
+
         return jsonify({"message": "Edit logged successfully"}), 200
     except Exception as e:
         print("Error logging edit:", str(e))
         return jsonify({"error": str(e)}), 500
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# Vercel serverless handler
+def handler(request, context=None):
+    from werkzeug.wrappers import Request, Response
+    req = Request(request.environ)
+    with app.test_request_context(req.path, method=req.method, data=req.get_data(), headers=req.headers):
+        resp = app.full_dispatch_request()
+    return Response(resp.get_data(), status=resp.status_code, headers=resp.headers)
