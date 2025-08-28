@@ -24,10 +24,5 @@ def log_edit():
         print("Error logging edit:", str(e))
         return jsonify({"error": str(e)}), 500
 
-# Vercel serverless handler
-def handler(request, context=None):
-    from werkzeug.wrappers import Request, Response
-    req = Request(request.environ)
-    with app.test_request_context(req.path, method=req.method, data=req.get_data(), headers=req.headers):
-        resp = app.full_dispatch_request()
-    return Response(resp.get_data(), status=resp.status_code, headers=resp.headers)
+def handler(request):
+    return app
