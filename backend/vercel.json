@@ -1,8 +1,8 @@
 {
-  "version": 2,
-  "functions": {
-    "app/app.py": {
-      "runtime": "python3.11"
+    "version": 2,
+    "functions": {
+        "app/app.py": {
+            "runtime": "vercel-python@0.9.0"
+        }
     }
-  }
 }
