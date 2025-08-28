@@ -4,7 +4,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/", methods=["POST"])
+@app.route("/update-section", methods=["POST"])
 def log_edit():
     try:
         data = request.get_json()
