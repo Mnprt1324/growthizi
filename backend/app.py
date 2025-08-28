@@ -24,5 +24,5 @@ def log_edit():
         print("Error logging edit:", str(e))
         return jsonify({"error": str(e)}), 500
 
-def handler(request):
-    return app
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
